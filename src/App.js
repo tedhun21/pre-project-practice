@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import { styled } from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { decrement, increment } from './reducers/counterSlice';
 
 const ButtonWrapper = styled.div`
   margin: 1rem;
@@ -27,14 +29,26 @@ const Button = styled.button`
 `;
 
 function App() {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+  console.log(count);
+
+  const handleCount = (e) => {
+    if (e.target.textContent === '+') {
+      dispatch(increment());
+    } else {
+      dispatch(decrement());
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <div>0</div>
+        <div>{count}</div>
         <ButtonWrapper>
-          <Button>+</Button>
-          <Button>-</Button>
+          <Button onClick={handleCount}>+</Button>
+          <Button onClick={handleCount}>-</Button>
         </ButtonWrapper>
       </header>
     </div>
