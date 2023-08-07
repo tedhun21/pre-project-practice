@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import { styled } from 'styled-components';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { decrement, increment } from './reducers/counterSlice';
 
 const ButtonWrapper = styled.div`
   margin: 1rem;
@@ -28,14 +29,15 @@ const Button = styled.button`
 `;
 
 function App() {
-  // 상태 만들기 (count)
-  const [count, setCount] = useState(0);
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+  console.log(count);
 
   const handleCount = (e) => {
     if (e.target.textContent === '+') {
-      setCount((prev) => prev + 1);
+      dispatch(increment());
     } else {
-      setCount((prev) => prev - 1);
+      dispatch(decrement());
     }
   };
 
