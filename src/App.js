@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { styled } from 'styled-components';
+import { useState } from 'react';
 
 const ButtonWrapper = styled.div`
   margin: 1rem;
@@ -27,14 +28,25 @@ const Button = styled.button`
 `;
 
 function App() {
+  // 상태 만들기 (count)
+  const [count, setCount] = useState(0);
+
+  const handleCount = (e) => {
+    if (e.target.textContent === '+') {
+      setCount((prev) => prev + 1);
+    } else {
+      setCount((prev) => prev - 1);
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <div>0</div>
+        <div>{count}</div>
         <ButtonWrapper>
-          <Button>+</Button>
-          <Button>-</Button>
+          <Button onClick={handleCount}>+</Button>
+          <Button onClick={handleCount}>-</Button>
         </ButtonWrapper>
       </header>
     </div>
